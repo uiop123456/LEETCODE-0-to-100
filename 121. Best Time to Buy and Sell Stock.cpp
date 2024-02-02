@@ -1,4 +1,4 @@
-// TLE
+// TLE - n^2
 class Solution {
 public:
     int maxProfit(vector<int>& nums) {
@@ -12,7 +12,7 @@ public:
     }
 };
 
-// better most probaby 
+// better most probaby - 2n
 // if you have the power of predicting the future then why not use it perfectly by adding a dummy array and make a count of max_so_far in reverse order traversal
 class Solution {
 public:
@@ -35,3 +35,17 @@ public:
     }
 };
 
+// best - n
+// used the power of predition marking min_till_now and subtract with max_so_far in future by traversing in forward
+class Solution {
+public:
+    int maxProfit(vector<int>& nums) {
+        int min_till_now=nums[0];
+        int ans=0;
+        for(int i=1;i<nums.size();i++){
+            min_till_now=min(min_till_now,nums[i]);
+            ans=max(ans,nums[i]-min_till_now);
+        }
+        return ans;
+    }
+};
