@@ -14,7 +14,7 @@ public:
     }
 };
 
-//dp
+//dp - bottom up
 class Solution {
 public:
     int solve(int row, int col,vector<vector<int>>&dp) {
@@ -29,5 +29,18 @@ public:
     int uniquePaths(int m, int n) {
         vector<vector<int>>dp(m,vector<int>(n,-1));
         return solve(m - 1, n - 1,dp); 
+    }
+};
+// dp top down
+class Solution {
+public:
+    int uniquePaths(int row, int col) {
+        vector<vector<int>>dp(row,vector<int>(col,1));
+        for(int i=1;i<row;i++){
+            for(int j=1;j<col;j++){
+                dp[i][j]=dp[i-1][j]+dp[i][j-1];
+            }
+        }
+        return dp[row-1][col-1];
     }
 };
