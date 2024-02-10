@@ -44,3 +44,17 @@ public:
         return dp[row-1][col-1];
     }
 };
+
+// optimised
+class Solution {
+public:
+    int uniquePaths(int m, int n) {
+        vector<vector<int>>dp(2,vector<int>(n,1));// m*n ---> 2*n just bcoz no need to store whole row and col. only need previous row and col
+        for(int i=1;i<m;i++){
+            for(int j=1;j<n;j++){
+                dp[i & 1][j]=dp[(i-1) & 1 ][j]+dp[i & 1][j-1];
+            }
+        }
+        return dp[(m-1) & 1][n-1];
+    }
+};
