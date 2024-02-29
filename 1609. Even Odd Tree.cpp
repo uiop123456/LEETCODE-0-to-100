@@ -1,14 +1,4 @@
-/**
- * Definition for a binary tree node.
- * struct TreeNode {
- *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
- *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
- *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
- * };
- */
+//bfs
 class Solution {
 public:
     bool isEvenOddTree(TreeNode* root) {
@@ -45,5 +35,34 @@ public:
             even_level=!even_level;
         }
         return true;
+    }
+};
+
+//dfs
+class Solution {
+public:
+    bool solve(TreeNode*root,vector<int>&level,int depth){
+        if(!root) return true;
+
+        //even level e odd integer
+        if(depth%2==0 && root->val%2!=1) return false;
+        // odd level e even integer
+        else if(depth%2==1 && root->val%2!=0) return false;
+
+        if(depth>=level.size()) level.resize(depth+1);//resize take O(n)
+
+        if(level[depth]!=0){//if already there's a value present of past level
+            if(depth%2==0 && root->val<=level[depth]) return false;
+            if(depth%2==1 && root->val>=level[depth]) return false;
+        }
+        level[depth]=root->val;
+        bool left=solve(root->left,level,depth+1);
+        bool right=solve(root->right,level,depth+1);
+        return left&&right;
+
+    }
+    bool isEvenOddTree(TreeNode* root) {
+        vector<int>level;
+        return solve(root,level,0);
     }
 };
