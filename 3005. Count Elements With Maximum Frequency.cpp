@@ -35,3 +35,22 @@ public:
         return count;
     }
 };  
+
+// map
+class Solution {
+public:
+    int maxFrequencyElements(vector<int>& nums) {
+        unordered_map<int,int>mp;
+        int maxF = -1,ans=0;
+        for(int i=0;i<nums.size();i++){
+            mp[nums[i]]++;
+            maxF = max(maxF,mp[nums[i]]);
+        }
+        for(auto m:mp){
+            if(m.second == maxF){
+                ans+=m.second;
+            }
+        }
+        return ans;
+    }
+};
